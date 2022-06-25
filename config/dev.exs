@@ -1,8 +1,10 @@
 import Config
 
-# Configure your database
 config :communote, Communote.Repo,
-  url: System.get_env("DATABASE_URL"),
+  username: "postgres",
+  password: "postgres",
+  database: "communote_dev",
+  hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
