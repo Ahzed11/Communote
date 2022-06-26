@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     environment:
-      MIX_ENV: test
+      MIX_ENV: dev
     env_file:
       - .env
     ports:

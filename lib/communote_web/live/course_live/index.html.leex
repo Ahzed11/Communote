@@ -1,0 +1,29 @@
+<h1>Listing Courses</h1>
+
+<%= f = form_for @changeset, "#",
+  id: "course-search",
+  phx_change: "changed",
+  phx_submit: "changed"
+%>
+  <%= label f, :term %>
+  <%= text_input f, :term, phx_debounce: "600" %>
+
+  <%= submit "Search" %>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody id="courses">
+    <%= for course <- @courses do %>
+      <tr id={"course-#{course.id}"}>
+        <td><%= course.title %></td>
+        <td><%= course.code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
