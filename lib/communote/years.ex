@@ -101,4 +101,16 @@ defmodule Communote.Years do
   def change_year(%Year{} = year, attrs \\ %{}) do
     Year.changeset(year, attrs)
   end
+
+  @doc """
+  Returns a map of year with the year as the key and the id as the value.
+
+  ## Examples
+      iex> enumerate(year_list)
+      %{"year" => id}
+
+  """
+  def enumerate(year_list) do
+    year_list |> Enum.map(&{"#{&1.year}", &1.id})
+  end
 end

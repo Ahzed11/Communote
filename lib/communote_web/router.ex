@@ -21,8 +21,6 @@ defmodule CommunoteWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-
-    live "/courses", CourseLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
@@ -80,6 +78,14 @@ defmodule CommunoteWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live "/courses", CourseLive.Index, :index
+
+    live "/courses/:code/notes", NoteLive.Index, :index
+    live "/courses/:code/notes/new", NoteLive.Index, :new
+    live "/courses/:code/notes/:slug/edit", NoteLive.Index, :edit
+    live "/courses/:code/notes/:slug", NoteLive.Show, :show
+    live "/courses/:code/notes/:slug/show/edit", NoteLive.Show, :edit
   end
 
   scope "/", CommunoteWeb do

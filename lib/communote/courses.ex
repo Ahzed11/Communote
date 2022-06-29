@@ -146,4 +146,16 @@ defmodule Communote.Courses do
   def change_course_search(%CourseSearch{} = course_search, attrs \\ %{}) do
     CourseSearch.changeset(course_search, attrs)
   end
+
+  @doc """
+  Returns a map of year with the code and title as the key and the id as the value.
+
+  ## Examples
+      iex> enumerate(course_list)
+      %{"code - title" => id}
+
+  """
+  def enumerate(course_list) do
+    course_list |> Enum.map(&{"#{&1.code} - #{&1.title}", &1.id})
+  end
 end

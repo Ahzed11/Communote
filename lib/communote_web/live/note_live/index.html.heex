@@ -1,0 +1,44 @@
+<h1>Listing Notes</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.note_index_path(@socket, :index, @code)}>
+    <.live_component
+      module={CommunoteWeb.NoteLive.FormComponent}
+      id={@note.id || :new}
+      title={@page_title}
+      action={@live_action}
+      note={@note}
+      current_user={assigns.current_user}
+      return_to={Routes.note_index_path(@socket, :index, @code)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Small description</th>
+      <th>Slug</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="notes">
+    <%= for note <- @notes do %>
+      <tr id={"note-#{note.id}"}>
+        <td><%= note.title %></td>
+        <td><%= note.description %></td>
+        <td><%= note.small_description %></td>
+        <td><%= note.slug %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.note_show_path(@socket, :show, @code, note.slug) %></span>
+          <span><%= live_patch "Edit", to: Routes.note_index_path(@socket, :edit, @code, note.slug) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_slug: note.slug, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -5,6 +5,7 @@ defmodule Communote.Years.Year do
 
   schema "years" do
     field :year, :string
+    has_many(:notes, Note)
 
     timestamps()
   end

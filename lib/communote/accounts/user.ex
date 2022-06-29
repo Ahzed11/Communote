@@ -1,6 +1,7 @@
 defmodule Communote.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Communote.Notes.Note
 
   schema "users" do
     field :email, :string
@@ -10,6 +11,7 @@ defmodule Communote.Accounts.User do
     field :first_name, :string
     field :last_name, :string
     field :roles, {:array, :string}, default: []
+    has_many(:notes, Note)
 
     timestamps()
   end

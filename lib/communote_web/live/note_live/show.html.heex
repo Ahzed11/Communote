@@ -1,0 +1,42 @@
+<h1>Show Note</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.note_show_path(@socket, :show, @code, @note.slug)}>
+    <.live_component
+      module={CommunoteWeb.NoteLive.FormComponent}
+      id={@note.id}
+      title={@page_title}
+      action={@live_action}
+      note={@note}
+      current_user={assigns.current_user}
+      return_to={Routes.note_show_path(@socket, :show, @code, @note.slug)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @note.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @note.description %>
+  </li>
+
+  <li>
+    <strong>Small description:</strong>
+    <%= @note.small_description %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @note.slug %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.note_show_path(@socket, :edit, @code, @note.slug), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.note_index_path(@socket, :index, @code) %></span>

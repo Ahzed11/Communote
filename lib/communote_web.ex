@@ -47,6 +47,7 @@ defmodule CommunoteWeb do
       use Phoenix.LiveView,
         layout: {CommunoteWeb.LayoutView, "live.html"}
 
+      on_mount CommunoteWeb.UserLiveAuth
       unquote(view_helpers())
     end
   end
