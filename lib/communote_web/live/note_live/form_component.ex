@@ -68,11 +68,11 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
 
   defp save_note(socket, :new, note_params) do
     case Notes.create_note(note_params) do
-      {:ok, _note} ->
+      {:ok, note} ->
         {:noreply,
          socket
          |> put_flash(:info, "Note created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(to: Routes.note_show_path(socket, :show, note.slug))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

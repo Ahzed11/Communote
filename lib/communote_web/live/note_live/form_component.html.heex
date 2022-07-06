@@ -1,5 +1,5 @@
-<div>
-  <h2><%= @title %></h2>
+<div class="w-full max-w-lg p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+  <h1 class="text-3xl font-semibold text-center text-gray-700 dark:text-white mb-6"><%= @title %></h1>
 
   <.form
     let={f}
@@ -7,34 +7,50 @@
     id="note-form"
     phx-target={@myself}
     phx-change="validate"
-    phx-submit="save">
+    phx-submit="save"
+  >
   
-    <%= label f, :title %>
-    <%= text_input f, :title %>
-    <%= error_tag f, :title %>
-  
-    <%= label f, :description %>
-    <%= text_input f, :description %>
-    <%= error_tag f, :description %>
-  
-    <%= label f, :small_description %>
-    <%= text_input f, :small_description %>
-    <%= error_tag f, :small_description %>
+    <div class="w-full">
+      <%= label f, :title, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+      <%= text_input f, :title, class: "block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 focus:ring-purple-800 dark:focus:border-green-300 dark:focus:ring-green-300  focus:outline-none focus:ring focus:ring-opacity-40" %>
+      <span class="text-red-400/100">
+        <%= error_tag f, :title %>
+      </span>
+    </div>
 
-    <%= label f, :course_search %>
-    <%= text_input f, :course_search %>
-    <%= error_tag f, :course_search %>
+    <div class="w-full mt-4">
+        <%= label f, :description, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+        <%= text_input f, :description, class: "block w-full h-40 px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 dark:focus:border-green-300 focus:outline-none focus:ring dark:focus:ring-green-300 focus:ring-purple-800 focus:ring-opacity-40" %>
+        <%= error_tag f, :description %>
+    </div>
 
-    <%= label f, :course_id %>
-    <%= select f, :course_id, @courses %>
-    <%= error_tag f, :course_id %>
+    <div class="w-full mt-4">
+        <%= label f, :small_description, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+        <%= text_input f, :small_description, class: "block w-full h-20 px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 dark:focus:border-green-300 focus:outline-none focus:ring dark:focus:ring-green-300 focus:ring-purple-800 focus:ring-opacity-40" %>
+        <%= error_tag f, :small_description %>
+    </div>
 
-    <%= label f, :year_id %>
-    <%= select f, :year_id, @years %>
-    <%= error_tag f, :year_id %>
-  
-    <div>
-      <%= submit "Save", phx_disable_with: "Saving..." %>
+    <div class="md:grid md:grid-cols-4 md:gap-4 mt-4">
+      <div class="md:col-span-1">
+        <%= label f, :course_search, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+        <%= text_input f, :course_search, class: "block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 focus:ring-purple-800 dark:focus:border-green-300 dark:focus:ring-green-300  focus:outline-none focus:ring focus:ring-opacity-40" %>
+      </div>
+
+      <div class="w-full mt-4 md:mt-0 md:col-span-3">
+        <%= label f, :course_id, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+        <%= select f, :course_id, @courses, class: "form-select appearance-none block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 focus:ring-purple-800 dark:focus:ring-green-300 dark:focus:border-green-300 focus:outline-none focus:ring focus:ring-opacity-40" %>
+        <%= error_tag f, :small_description %>
+      </div>
+    </div>
+
+    <div class="w-full mt-4">
+        <%= label f, :year_id, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>
+        <%= select f, :year_id, @years, class: "form-select appearance-none block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-800 focus:ring-purple-800 dark:focus:ring-green-300 dark:focus:border-green-300 focus:outline-none focus:ring focus:ring-opacity-40" %>
+        <%= error_tag f, :year_id %>
+    </div>
+
+    <div class="w-full mt-6">
+      <%= submit "Save", phx_disable_with: "Saving...", class: "w-full px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600" %>
     </div>
   </.form>
 </div>

@@ -23,8 +23,8 @@ defmodule Communote.Notes.Note do
   def changeset(note, attrs) do
     note
     |> cast(attrs, [:title, :description, :small_description, :user_id, :course_id, :year_id, :course_search])
+    |> validate_required([:title, :description, :small_description, :user_id, :course_id, :year_id])
     |> generate_slug()
-    |> validate_required([:title, :description, :small_description, :slug, :user_id, :course_id, :year_id])
     |> unique_constraint(:slug)
   end
 

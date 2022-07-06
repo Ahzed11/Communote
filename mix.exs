@@ -51,6 +51,8 @@ defmodule Communote.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:slugify, "~> 1.3"},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:timex, "~> 3.0"}
     ]
   end
 
@@ -66,7 +68,7 @@ defmodule Communote.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify","esbuild default --minify", "phx.digest"]
     ]
   end
 end

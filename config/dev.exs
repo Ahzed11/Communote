@@ -24,7 +24,8 @@ config :communote, CommunoteWeb.Endpoint,
   secret_key_base: "ecqUFQCsh1AjEZ+JerR+JYmKTpV7nwl5A4d6TSwVouDz/A7x1nCqQmkP6CebUFFS",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

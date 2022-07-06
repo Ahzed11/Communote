@@ -44,7 +44,7 @@ defmodule Communote.Notes do
             join: y in assoc(n, :year),
             join: c in assoc(n, :course),
             where: c.code == ^course_code,
-            preload: [:user, year: y],
+            preload: [:user, year: y, course: c],
             order_by: [desc: y.year]
 
     Repo.all(query)
@@ -77,13 +77,14 @@ defmodule Communote.Notes do
       iex> get_note_by_slug!("some-slug")
       %Note{}
 
-      iex> get_note!("some-slug")
+      iex> get_note_by_slug!("some-slug")
       ** (Ecto.NoResultsError)
 
   """
   def get_note_by_slug(slug) do
     query = from n in Note,
-            where: n.slug == ^slug
+            where: n.slug == ^slug,
+            preload: [:user, :year, :course]
     Repo.one!(query)
   end
 

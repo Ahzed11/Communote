@@ -80,12 +80,11 @@ defmodule CommunoteWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/courses", CourseLive.Index, :index
-
     live "/courses/:code/notes", NoteLive.Index, :index
-    live "/courses/:code/notes/new", NoteLive.Index, :new
-    live "/courses/:code/notes/:slug/edit", NoteLive.Index, :edit
-    live "/courses/:code/notes/:slug", NoteLive.Show, :show
-    live "/courses/:code/notes/:slug/show/edit", NoteLive.Show, :edit
+
+    live "/notes/new", NoteLive.New, :new
+    live "/notes/:slug", NoteLive.Show, :show
+    live "/notes/:slug/edit", NoteLive.Show, :edit
   end
 
   scope "/", CommunoteWeb do

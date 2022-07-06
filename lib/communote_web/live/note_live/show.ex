@@ -9,14 +9,22 @@ defmodule CommunoteWeb.NoteLive.Show do
   end
 
   @impl true
-  def handle_params(%{"code" => code, "slug" => slug}, _, socket) do
+  def handle_params(%{"slug" => slug}, _, socket) do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:code, code)
      |> assign(:note, Notes.get_note_by_slug(slug))
     }
   end
+
+  @impl true
+  def handle_event("delete", %{"slug" => slug}, socket) do
+    note = Notes.get_note_by_slug(slug)
+    {:ok, _} = Notes.delete_note(note)
+
+    {:noreply, socket}
+  end
+
 
   defp page_title(:show), do: "Show Note"
   defp page_title(:edit), do: "Edit Note"
