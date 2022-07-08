@@ -4,7 +4,7 @@
   <%= for year <- Enum.chunk_by(@notes, fn note -> note.year.year end) do %>
     <h2 class="text-2xl font-bold col-span-full underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600"><%= List.first(year).year.year %></h2>
     <%= for note <- year do %>
-      <%= live_component CommunoteWeb.Live.CourseLive.NoteCard, note: note %>
+      <%= live_component CommunoteWeb.Live.NoteLive.NoteCard, note: note %>
     <% end %>
   <% end %>
 </ul>

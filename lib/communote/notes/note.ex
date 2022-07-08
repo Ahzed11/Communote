@@ -5,6 +5,7 @@ defmodule Communote.Notes.Note do
   alias Communote.Courses.Course
   alias Communote.Years.Year
   alias Communote.Notes
+  alias Communote.Slug
 
   schema "notes" do
     field :description, :string
@@ -29,23 +30,8 @@ defmodule Communote.Notes.Note do
   end
 
   def generate_slug(changeset) do
-    case get_field(changeset, :id) do
-      nil -> case get_field(changeset, :title) do
-        nil -> add_error(changeset, :slug, "No title")
-        title -> slug = Slug.slugify(title, truncate: 30)
-          note = Notes.list_notes_by_slug(slug)
-          case note do
-            [] -> put_change(changeset, :slug, slug)
-            [e] -> parsed = Integer.parse(String.last(e.slug))
-              case parsed do
-                {x, ""} -> put_change(changeset, :slug, slug<>Integer.to_string(x+1))
-                _ -> put_change(changeset, :slug, slug<>"-"<>Integer.to_string(1))
-              end
-          end
-        end
-      id -> prev_slug = Notes.get_note!(id).slug
-        put_change(changeset, :slug, prev_slug)
-    end
+    title = get_field(changeset, :title)
+    Slug.generate_slug(changeset, title, &Notes.list_notes_by_slug/1, &Notes.get_note!/1)
   end
 
 end

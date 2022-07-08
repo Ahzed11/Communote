@@ -1,4 +1,4 @@
-defmodule CommunoteWeb.Live.CourseLive.NoteCard do
+defmodule CommunoteWeb.Live.NoteLive.NoteCard do
   use CommunoteWeb, :live_component
 
   def render(%{note: note} = assigns) do

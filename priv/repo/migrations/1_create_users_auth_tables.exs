@@ -11,6 +11,7 @@ defmodule Communote.Repo.Migrations.CreateUsersAuthTables do
       add :first_name, :string, null: false
       add :last_name, :string, null: false
       add :roles, {:array, :string}
+      add :slug, :string, null: false
       timestamps()
     end
 

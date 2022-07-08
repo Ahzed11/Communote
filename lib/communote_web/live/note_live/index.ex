@@ -12,8 +12,7 @@ defmodule CommunoteWeb.NoteLive.Index do
   end
 
   def mount(%{"slug" => _slug} = _params, _session, socket) do
-    {:ok,
-      socket}
+    {:ok, socket}
   end
 
   @impl true

@@ -85,6 +85,8 @@ defmodule CommunoteWeb.Router do
     live "/notes/new", NoteLive.New, :new
     live "/notes/:slug", NoteLive.Show, :show
     live "/notes/:slug/edit", NoteLive.Show, :edit
+
+    live "/profiles/:slug", ProfileLive.Show, :show
   end
 
   scope "/", CommunoteWeb do

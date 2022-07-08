@@ -1,7 +1,9 @@
 defmodule Communote.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Communote.Accounts
   alias Communote.Notes.Note
+  alias Communote.Slug
 
   schema "users" do
     field :email, :string
@@ -11,6 +13,7 @@ defmodule Communote.Accounts.User do
     field :first_name, :string
     field :last_name, :string
     field :roles, {:array, :string}, default: []
+    field :slug, :string
     has_many(:notes, Note)
 
     timestamps()
@@ -40,6 +43,7 @@ defmodule Communote.Accounts.User do
     |> validate_password(opts)
     |> validate_required(:first_name)
     |> validate_required(:last_name)
+    |> generate_slug()
   end
 
   defp validate_email(changeset) do
@@ -143,5 +147,14 @@ defmodule Communote.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def generate_slug(changeset) do
+    name = case get_field(changeset, :first_name) do
+      nil -> nil
+      _ -> "#{get_field(changeset, :first_name)} #{get_field(changeset, :last_name)}"
+    end
+
+    Slug.generate_slug(changeset, name, &Accounts.list_users_by_slug/1, &Accounts.get_user!/1)
   end
 end

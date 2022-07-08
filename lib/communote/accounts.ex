@@ -60,6 +60,31 @@ defmodule Communote.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @doc """
+  Returns the user for a given slug.
+  ## Examples
+      iex> list_notes_by_course_code("first-last")
+      [%User{}, ...]
+  """
+  def get_user_by_slug(slug) do
+    query = from u in User,
+            where: u.slug == ^slug
+
+    Repo.one(query)
+  end
+
+  @doc """
+  Gets all users by searching the slug.
+  ## Examples
+      iex> list_users_by_slug("first-last")
+      [%User{}, ...]
+  """
+  def list_users_by_slug(slug) do
+    query = from u in User,
+            where: u.slug == ^slug
+    Repo.all(query)
+  end
+
   ## User registration
 
   @doc """

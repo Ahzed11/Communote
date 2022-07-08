@@ -34,6 +34,23 @@ defmodule Communote.Notes do
   end
 
   @doc """
+  Gets all notes by searching the user_id.
+  ## Examples
+      iex> list_notes_by_user_id(1)
+      [%Note{}, ...]
+  """
+  def list_notes_by_user_id(user_id) do
+    query = from n in Note,
+            join: y in assoc(n, :year),
+            join: c in assoc(n, :course),
+            where: n.user_id == ^user_id,
+            preload: [:user, year: y, course: c],
+            order_by: [desc: y.year]
+    Repo.all(query)
+  end
+
+
+  @doc """
   Returns the list of notes for a given course code.
   ## Examples
       iex> list_notes_by_course_code("LINFO1104")
