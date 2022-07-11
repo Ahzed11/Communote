@@ -60,3 +60,12 @@ config :tailwind, version: "3.1.4", default: [
   ),
   cd: Path.expand("../assets", __DIR__)
 ]
+
+# Kaffy
+config :kaffy,
+  otp_app: :communote,
+  ecto_repo: Communote.Repo,
+  router: CommunoteWeb.Router,
+  admin_title: "Communoté",
+  admin_logo: "/images/logo-communote.png",
+  admin_logo_mini: "/images/favicon-32.png"

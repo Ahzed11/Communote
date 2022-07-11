@@ -4,7 +4,7 @@ defmodule CommunoteWeb.Live.CourseLive.CourseCard do
     def render(assigns) do
       ~L"""
       <li class="p-8 inline-block rounded-lg shadow overflow-hidden h-full hover:shadow-lg transform hover:scale-105 transition duration-300
-      bg-white dark:bg-gray-800"
+      bg-white dark:bg-gray-800 dark:text-white"
         id={"course-#{course.id}"}
         >
             <div class="h-full">

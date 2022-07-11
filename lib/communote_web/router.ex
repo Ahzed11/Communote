@@ -1,5 +1,6 @@
 defmodule CommunoteWeb.Router do
   use CommunoteWeb, :router
+  use Kaffy.Routes, scope: "/admin", pipe_through: [:browser, :require_authenticated_user]
 
   import CommunoteWeb.UserAuth
 
@@ -15,12 +16,6 @@ defmodule CommunoteWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-  end
-
-  scope "/", CommunoteWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -70,6 +65,7 @@ defmodule CommunoteWeb.Router do
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
+    get "/", PageController, :index
   end
 
   scope "/", CommunoteWeb do

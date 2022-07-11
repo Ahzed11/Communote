@@ -11,6 +11,20 @@ defmodule Communote.Accounts do
   ## Database getters
 
   @doc """
+  Gets the number of users.
+
+  ## Examples
+
+      iex> get_user_count()
+      10
+
+  """
+  def get_user_count() do
+    query = from u in User, select: count()
+    Repo.one(query)
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples

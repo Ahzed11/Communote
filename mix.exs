@@ -52,7 +52,8 @@ defmodule Communote.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:slugify, "~> 1.3"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:kaffy, "~> 0.9.0"}
     ]
   end
 

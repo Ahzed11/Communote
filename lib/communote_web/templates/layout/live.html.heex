@@ -1,7 +1,7 @@
-<main class="container">
+<main class="container mx-auto pt-10">
 
   <%= if Map.get(@flash, "info") do %>
-    <div class="w-full text-white bg-blue-500" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
+    <div class="w-full text-white bg-blue-500 mb-10" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
         <div class="container flex items-center justify-between px-6 py-4 mx-auto">
             <div class="flex">
                 <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
@@ -23,7 +23,7 @@
   <% end %>
 
   <%= if Map.get(@flash, "danger") do %>
-    <div class="w-full text-white bg-red-500" role="alert" phx-click="lv:clear-flash" phx-value-key="danger">
+    <div class="w-full text-white bg-red-500 mb-10" role="alert" phx-click="lv:clear-flash" phx-value-key="danger">
         <div class="container flex items-center justify-between px-6 py-4 mx-auto">
             <div class="flex">
                 <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">

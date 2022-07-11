@@ -9,6 +9,20 @@ defmodule Communote.Notes do
   alias Communote.Notes.Note
 
   @doc """
+  Gets the number of notes.
+
+  ## Examples
+
+      iex> get_note_count()
+      10
+
+  """
+  def get_note_count() do
+    query = from n in Note, select: count()
+    Repo.one(query)
+  end
+
+  @doc """
   Returns the list of notes.
 
   ## Examples
