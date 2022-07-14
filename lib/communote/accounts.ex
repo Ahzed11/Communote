@@ -8,6 +8,8 @@ defmodule Communote.Accounts do
 
   alias Communote.Accounts.{User, UserToken, UserNotifier}
 
+  @rand_pass_len 32
+
   ## Database getters
 
   @doc """
@@ -118,6 +120,25 @@ defmodule Communote.Accounts do
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
+
+  @doc """
+  Registers a OAuth user.
+
+  ## Examples
+
+      iex> register_oauth_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_oauth_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def register_oauth_user(attrs) do
+    %User{}
+    |> User.oauth_changeset(attrs)
+    |> Repo.insert()
+  end
+
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
@@ -389,4 +410,36 @@ defmodule Communote.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  ## Create user from Google OAuth
+  @doc """
+  Returns a {:ok, user} tuple.
+
+  ## Examples
+
+      iex> find_or_create(user)
+      {:ok, user}
+
+  """
+  def find_or_create(%Ueberauth.Auth{} = auth) when auth.strategy == Ueberauth.Strategy.Google do
+    result =
+      case get_user_by_email(auth.info.email) do
+        nil ->
+          register_oauth_user(
+            %{
+              uid: auth.uid,
+              email: auth.info.email,
+              first_name: auth.info.first_name,
+              last_name: auth.info.last_name || "",
+              password: :crypto.strong_rand_bytes(@rand_pass_len) |> Base.encode64(),
+              confirmed_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+              provider: "Google"
+            }
+          )
+        user -> {:ok, user}
+      end
+
+    result
+  end
+
 end
