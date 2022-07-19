@@ -14,6 +14,7 @@ defmodule Communote.Accounts.User do
     field :last_name, :string
     field :roles, {:array, :string}, default: []
     field :slug, :string
+    field :provider, :string
     has_many(:notes, Note)
 
     timestamps()
@@ -43,6 +44,14 @@ defmodule Communote.Accounts.User do
     |> validate_password(opts)
     |> validate_required(:first_name)
     |> validate_required(:last_name)
+    |> generate_slug()
+  end
+
+  def oauth_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :confirmed_at, :provider])
+    |> validate_email()
+    |> validate_password(opts)
     |> generate_slug()
   end
 

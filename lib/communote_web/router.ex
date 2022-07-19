@@ -68,6 +68,14 @@ defmodule CommunoteWeb.Router do
     get "/", PageController, :index
   end
 
+  # OAuth
+  scope "/auth", CommunoteWeb do
+    pipe_through :browser
+
+    get "/:provider", OAuthController, :request
+    get "/:provider/callback", OAuthController, :callback
+  end
+
   scope "/", CommunoteWeb do
     pipe_through [:browser, :require_authenticated_user]
 

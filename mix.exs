@@ -53,7 +53,10 @@ defmodule Communote.MixProject do
       {:slugify, "~> 1.3"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:timex, "~> 3.0"},
-      {:kaffy, "~> 0.9.0"}
+      {:kaffy, "~> 0.9.0"},
+      {:ueberauth, "~> 0.7"},
+      {:ueberauth_google, "~> 0.10"},
+      {:ueberauth_microsoft, "~> 0.15"}
     ]
   end
 
