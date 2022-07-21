@@ -1,4 +1,4 @@
-defmodule Communote.Repo.Migrations.CreateUsersAuthTables do
+defmodule Communote.Repo.Migrations.UpdateUsersAuthTablesWithProvider do
   use Ecto.Migration
 
   def change do
