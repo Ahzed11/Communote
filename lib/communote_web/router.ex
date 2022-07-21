@@ -1,8 +1,9 @@
 defmodule CommunoteWeb.Router do
   use CommunoteWeb, :router
-  use Kaffy.Routes, scope: "/admin", pipe_through: [:browser, :require_authenticated_user]
+  use Kaffy.Routes, scope: "/admin", pipe_through: [:browser, :require_authenticated_user, :admin]
 
   import CommunoteWeb.UserAuth
+  alias CommunoteWeb.Plugs
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -16,6 +17,10 @@ defmodule CommunoteWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :admin do
+    plug Plugs.EnsureRolePlug, "admin"
   end
 
   # Other scopes may use custom stacks.
