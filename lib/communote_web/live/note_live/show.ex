@@ -2,6 +2,7 @@ defmodule CommunoteWeb.NoteLive.Show do
   use CommunoteWeb, :live_view
 
   alias Communote.Notes
+  alias Communote.Accounts
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,7 +21,11 @@ defmodule CommunoteWeb.NoteLive.Show do
   @impl true
   def handle_event("delete", %{"slug" => slug}, socket) do
     note = Notes.get_note_by_slug(slug)
-    {:ok, _} = Notes.delete_note(note)
+
+    if Accounts.owns?(socket.assigns.current_user, note) do
+      {:ok, _} = Notes.delete_note(note)
+      {:noreply, socket}
+    end
 
     {:noreply, socket}
   end

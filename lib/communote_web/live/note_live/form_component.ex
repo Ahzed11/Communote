@@ -4,6 +4,7 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
   alias Communote.Notes
   alias Communote.Courses
   alias Communote.Years
+  alias Communote.Accounts
 
   @impl true
   def update(%{note: note} = assigns, socket) do
@@ -49,25 +50,32 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
   end
 
   def handle_event("save", %{"note" => note_params}, socket) do
-    note = Map.put(note_params, "user_id", socket.assigns.current_user.id)
-    save_note(socket, socket.assigns.action, note)
+    save_note(socket, socket.assigns.action, note_params)
   end
 
   defp save_note(socket, :edit, note_params) do
-    case Notes.update_note(socket.assigns.note, note_params) do
-      {:ok, _note} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Note updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+    case Accounts.owns?(socket.assigns.current_user, note_params) do
+      true ->
+        case Notes.update_note(socket.assigns.note, note_params) do
+          {:ok, _note} ->
+            {:noreply,
+            socket
+            |> put_flash(:info, "Note updated successfully")
+            |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
+          {:error, %Ecto.Changeset{} = changeset} -> {:noreply, assign(socket, :changeset, changeset)}
+        end
+      false ->
+        {:noreply,
+        socket
+        |> put_flash(:danger, "You do not own this resource")
+        |> push_redirect(to: socket.assigns.return_to)}
     end
   end
 
   defp save_note(socket, :new, note_params) do
-    case Notes.create_note(note_params) do
+    note = Map.put(note_params, "user_id", socket.assigns.current_user.id)
+    case Notes.create_note(note) do
       {:ok, note} ->
         {:noreply,
          socket
