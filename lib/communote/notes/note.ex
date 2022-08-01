@@ -13,6 +13,7 @@ defmodule Communote.Notes.Note do
     field :small_description, :string
     field :title, :string
     field :course_search, :string, virtual: true
+    field :filename, :string
     belongs_to(:user, User)
     belongs_to(:course, Course)
     belongs_to(:year, Year)
@@ -23,8 +24,8 @@ defmodule Communote.Notes.Note do
   @doc false
   def changeset(note, attrs) do
     note
-    |> cast(attrs, [:title, :description, :small_description, :user_id, :course_id, :year_id, :course_search])
-    |> validate_required([:title, :description, :small_description, :user_id, :course_id, :year_id])
+    |> cast(attrs, [:title, :description, :small_description, :user_id, :course_id, :year_id, :course_search, :filename])
+    |> validate_required([:title, :description, :small_description, :user_id, :course_id, :year_id, :filename])
     |> generate_slug()
     |> unique_constraint(:slug)
   end

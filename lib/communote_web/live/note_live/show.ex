@@ -11,10 +11,14 @@ defmodule CommunoteWeb.NoteLive.Show do
 
   @impl true
   def handle_params(%{"slug" => slug}, _, socket) do
+    note = Notes.get_note_by_slug(slug)
+    presigned_url = Notes.get_note_file_presigned_url(note.filename, :get)
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:note, Notes.get_note_by_slug(slug))
+     |> assign(:note, note)
+     |> assign(:presigned_url, presigned_url)
     }
   end
 
@@ -24,7 +28,6 @@ defmodule CommunoteWeb.NoteLive.Show do
 
     if Accounts.owns?(socket.assigns.current_user, note) do
       {:ok, _} = Notes.delete_note(note)
-      {:noreply, socket}
     end
 
     {:noreply, socket}

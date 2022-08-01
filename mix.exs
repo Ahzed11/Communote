@@ -56,7 +56,11 @@ defmodule Communote.MixProject do
       {:kaffy, "~> 0.9.0"},
       {:ueberauth, "~> 0.7"},
       {:ueberauth_google, "~> 0.10"},
-      {:ueberauth_microsoft, "~> 0.15"}
+      {:ueberauth_microsoft, "~> 0.15"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 
