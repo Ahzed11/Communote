@@ -30,6 +30,36 @@
         <%= error_tag f, :small_description %>
     </div>
 
+    <%= live_file_input @uploads.note_file %>
+
+    <section phx-drop-target={@uploads.note_file.ref}>
+    <%# render each avatar entry %>
+    <%= for entry <- @uploads.note_file.entries do %>
+      <article class="upload-entry">
+
+        <p><%= entry.client_name %></p>
+
+        <%# entry.progress will update automatically for in-flight entries %>
+        <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+
+        <%# a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 %>
+        <button phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
+
+        <%# Phoenix.LiveView.Helpers.upload_errors/2 returns a list of error atoms %>
+        <%= for err <- upload_errors(@uploads.note_file, entry) do %>
+          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+        <% end %>
+
+      </article>
+    <% end %>
+
+    <%# Phoenix.LiveView.Helpers.upload_errors/1 returns a list of error atoms %>
+    <%= for err <- upload_errors(@uploads.note_file) do %>
+      <p class="alert alert-danger"><%= error_to_string(err) %></p>
+    <% end %>
+
+    </section>
+
     <div class="md:grid md:grid-cols-4 md:gap-4 mt-4">
       <div class="md:col-span-1">
         <%= label f, :course_search, class: "block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" %>

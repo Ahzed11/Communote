@@ -168,7 +168,19 @@ defmodule Communote.Notes do
 
   """
   def delete_note(%Note{} = note) do
-    Repo.delete(note)
+    {:ok, _} = Repo.delete(note)
+    delete_note_file(note)
+  end
+
+  def delete_note_file(%Note{} = note) do
+    bucket = System.fetch_env!("AWS_S3_BUCKET")
+    ExAws.S3.delete_object(bucket, note.filename) |> ExAws.request()
+  end
+
+  def get_note_file_presigned_url(key, method) do
+    bucket = System.fetch_env!("AWS_S3_BUCKET")
+    {:ok, presigned_url} = ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(method, bucket, key)
+    presigned_url
   end
 
   @doc """

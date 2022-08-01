@@ -88,6 +88,8 @@ defmodule CommunoteWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
+    get "/notes/:slug/download", NoteController, :download
+
     live "/courses", CourseLive.Index, :index
     live "/courses/:code/notes", NoteLive.Index, :index
 
