@@ -59,6 +59,10 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
     }
   end
 
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :note_file, ref)}
+  end
+
   def handle_event("save", %{"note" => note_params}, socket) do
     filename = consume_uploaded_entries(socket, :note_file, fn %{} = meta, _entry ->
       meta.key

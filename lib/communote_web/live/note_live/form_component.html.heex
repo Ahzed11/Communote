@@ -30,34 +30,35 @@
         <%= error_tag f, :small_description %>
     </div>
 
-    <%= live_file_input @uploads.note_file %>
+    <span class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200 mt-4">File</span>
+    <section phx-drop-target={@uploads.note_file.ref} class="flex w-full items-center">
+      <label class="w-full flex flex-col items-center px-4 py-6 dark:bg-gray-800 border text-gray-700 dark:text-gray-300 border-gray-500 dark:border-gray-600 rounded-lg tracking-wide cursor-pointer hover:text-purple-800 dark:hover:text-green-400">
+        <i class="fas fa-upload"></i>
+        <%= if length(@uploads.note_file.entries) <= 0 do %>
+            <span class="mt-2 text-sm">Select a file</span>
+          <% else %>
+            <%= for entry <- @uploads.note_file.entries do %>
+              <span class="mt-2 text-sm"> <%= entry.client_name %></span>
+            <% end %>
+          <% end %>  
+        <%= live_file_input @uploads.note_file, class: "hidden" %>
 
-    <section phx-drop-target={@uploads.note_file.ref}>
-    <%# render each avatar entry %>
-    <%= for entry <- @uploads.note_file.entries do %>
-      <article class="upload-entry">
+        <%= for entry <- @uploads.note_file.entries do %>
+          <article class="flex flex-col mb-1 mt-2 w-full">
+            <progress value={entry.progress} max="100" class="w-full dark:bg-gray-900 h-2.5 rounded-full"> <%= entry.progress %>% </progress>
 
-        <p><%= entry.client_name %></p>
-
-        <%# entry.progress will update automatically for in-flight entries %>
-        <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
-
-        <%# a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 %>
-        <button phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
-
-        <%# Phoenix.LiveView.Helpers.upload_errors/2 returns a list of error atoms %>
-        <%= for err <- upload_errors(@uploads.note_file, entry) do %>
-          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+            <%= for err <- upload_errors(@uploads.note_file, entry) do %>
+              <p class="invalid-feedback"><%= error_to_string(err) %></p>
+            <% end %>
+          </article>
         <% end %>
+      </label>
+    </section>
 
-      </article>
-    <% end %>
-
-    <%# Phoenix.LiveView.Helpers.upload_errors/1 returns a list of error atoms %>
+    <section>
     <%= for err <- upload_errors(@uploads.note_file) do %>
-      <p class="alert alert-danger"><%= error_to_string(err) %></p>
+      <p class="invalid-feedback"><%= error_to_string(err) %></p>
     <% end %>
-
     </section>
 
     <div class="md:grid md:grid-cols-4 md:gap-4 mt-4">
