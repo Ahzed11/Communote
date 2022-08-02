@@ -18,7 +18,7 @@ defmodule Communote.Downloads do
 
   """
   def get_download_count() do
-    query = from n in Download, select: count()
+    query = from d in Download, select: count()
     Repo.one(query)
   end
 
