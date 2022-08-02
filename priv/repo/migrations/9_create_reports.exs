@@ -4,7 +4,7 @@ defmodule Communote.Repo.Migrations.CreateReports do
   def change do
     create table(:reports) do
       add :body, :text
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :nilify_all)
       add :note_id, references(:notes, on_delete: :delete_all)
 
       timestamps()

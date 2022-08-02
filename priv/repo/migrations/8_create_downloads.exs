@@ -3,8 +3,8 @@ defmodule Communote.Repo.Migrations.CreateDownloads do
 
   def change do
     create table(:downloads) do
-      add :user_id, references(:users, on_delete: :nothing)
-      add :note_id, references(:notes, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :nilify_all)
+      add :note_id, references(:notes, on_delete: :nilify_all)
 
       timestamps()
     end
