@@ -4,6 +4,7 @@ defmodule CommunoteWeb.NoteLive.Show do
   alias Communote.Notes
   alias Communote.Accounts
   alias Communote.Reports.Report
+  alias Communote.Reviews
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,8 +21,11 @@ defmodule CommunoteWeb.NoteLive.Show do
 
   defp apply_action(socket, :show, _params) do
     presigned_url = Notes.get_note_file_presigned_url(socket.assigns.note.filename, :get)
+    review = Reviews.get_review_by_user_and_note(socket.assigns.current_user, socket.assigns.note)
 
-    assign(socket, :presigned_url, presigned_url)
+    socket
+      |> assign(:presigned_url, presigned_url)
+      |> assign(:review, review)
   end
 
   defp apply_action(socket, :edit, %{"slug" => slug}) do

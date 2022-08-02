@@ -6,6 +6,7 @@ defmodule Communote.Notes.Note do
   alias Communote.Years.Year
   alias Communote.Downloads.Download
   alias Communote.Reports.Report
+  alias Communote.Reviews.Review
   alias Communote.Notes
   alias Communote.Slug
 
@@ -21,6 +22,7 @@ defmodule Communote.Notes.Note do
     belongs_to(:year, Year)
     has_many(:downloads, Download)
     has_many(:reports, Report)
+    has_many(:reviews, Review)
 
     timestamps()
   end

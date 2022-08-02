@@ -5,6 +5,7 @@ defmodule Communote.Accounts.User do
   alias Communote.Notes.Note
   alias Communote.Downloads.Download
   alias Communote.Reports.Report
+  alias Communote.Reviews.Review
   alias Communote.Slug
 
   schema "users" do
@@ -20,6 +21,7 @@ defmodule Communote.Accounts.User do
     has_many(:notes, Note)
     has_many(:downloads, Download)
     has_many(:reports, Report)
+    has_many(:reviews, Review)
 
     timestamps()
   end
