@@ -442,6 +442,10 @@ defmodule Communote.Accounts do
     result
   end
 
+  def owns?(%User{} = user, resource) when is_struct(resource) do
+    user.id == resource.user_id
+  end
+
   def owns?(%User{} = user, resource) when is_map(resource) do
     user.id == resource["user_id"]
   end
