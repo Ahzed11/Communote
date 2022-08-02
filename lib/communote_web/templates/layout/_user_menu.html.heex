@@ -58,7 +58,7 @@
 
                             <hr class="border-gray-200 dark:border-gray-700 ">
 
-                            <%= link to: Routes.user_settings_path(@conn, :edit), class: "flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
+                            <%= live_redirect to: Routes.note_new_path(@conn, :new), class: "flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white" do %>
                                 <i class="mx-1 fas fa-pen"></i>
 
                                 <span class="mx-1">

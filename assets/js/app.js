@@ -48,12 +48,8 @@ window.liveSocket = liveSocket
 let dropdown = document.getElementById("dropdown")
 let dropdownButton = document.getElementById("dropdown-button")
 
-dropdownButton.addEventListener("click", () => {
+dropdownButton.addEventListener("mouseenter", () => {
   dropdown.classList.remove("invisible")
-})
-
-dropdownButton.addEventListener("focusout", () => {
-  dropdown.classList.add("invisible")
 })
 
 dropdown.addEventListener("mouseleave", () => {
