@@ -9,7 +9,7 @@ defmodule Communote.Slug do
           elements = list_function.(slug)
           case elements do
             [] -> put_change(changeset, :slug, slug)
-            [e] -> put_change(changeset, :slug, "#{slug}-#{Ecto.UUID.generate}")
+            [_e] -> put_change(changeset, :slug, "#{slug}-#{Ecto.UUID.generate}")
           end
         end
       id -> prev_slug = get_function.(id).slug
