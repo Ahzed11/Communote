@@ -45,3 +45,17 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+let dropdown = document.getElementById("dropdown")
+let dropdownButton = document.getElementById("dropdown-button")
+
+dropdownButton.addEventListener("click", () => {
+  dropdown.classList.remove("invisible")
+})
+
+dropdownButton.addEventListener("focusout", () => {
+  dropdown.classList.add("invisible")
+})
+
+dropdown.addEventListener("mouseleave", () => {
+  dropdown.classList.add("invisible")
+})
