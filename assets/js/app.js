@@ -45,13 +45,25 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// EventListeners
+
 let dropdown = document.getElementById("dropdown")
 let dropdownButton = document.getElementById("dropdown-button")
+let alertCloseBtn = document.getElementById("alert-close-btn")
+let flashBanner = document.getElementById("flash-banner")
 
-dropdownButton.addEventListener("mouseenter", () => {
-  dropdown.classList.remove("invisible")
-})
+if (dropdownButton) {
+  dropdownButton.addEventListener("mouseenter", () => {
+    dropdown.classList.remove("invisible")
+  })
+  dropdown.addEventListener("mouseleave", () => {
+    dropdown.classList.add("invisible")
+  })
+}
 
-dropdown.addEventListener("mouseleave", () => {
-  dropdown.classList.add("invisible")
-})
+if(flashBanner) {
+  alertCloseBtn.addEventListener("click", (event) => {
+    event.preventDefault()
+    flashBanner.classList.add("invisible")
+  })
+}
