@@ -96,6 +96,7 @@ defmodule CommunoteWeb.Router do
     live "/notes/new", NoteLive.New, :new
     live "/notes/:slug", NoteLive.Show, :show
     live "/notes/:slug/edit", NoteLive.Show, :edit
+    live "/notes/:slug/reports/new", NoteLive.Show, :new_report
 
     live "/profiles/:slug", ProfileLive.Show, :show
   end
