@@ -9,11 +9,7 @@ defmodule Communote.Slug do
           elements = list_function.(slug)
           case elements do
             [] -> put_change(changeset, :slug, slug)
-            [e] -> parsed = Integer.parse(String.last(e.slug))
-              case parsed do
-                {x, ""} -> put_change(changeset, :slug, slug<>Integer.to_string(x+1))
-                _ -> put_change(changeset, :slug, slug<>"-"<>Integer.to_string(1))
-              end
+            [e] -> put_change(changeset, :slug, "#{slug}-#{Ecto.UUID.generate}")
           end
         end
       id -> prev_slug = get_function.(id).slug
