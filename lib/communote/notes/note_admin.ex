@@ -8,8 +8,8 @@ defmodule Communote.Notes.NoteAdmin do
         title: "Number of notes",
         content: Notes.get_note_count |> Integer.to_string(),
         icon: "pen",
-        order: 1,
-        width: 6,
+        order: 2,
+        width: 2
       },
     ]
   end

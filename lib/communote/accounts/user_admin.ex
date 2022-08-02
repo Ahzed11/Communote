@@ -9,6 +9,7 @@ defmodule Communote.Accounts.UserAdmin do
         content: Accounts.get_user_count |> Integer.to_string(),
         icon: "user",
         order: 1,
+        width: 2
       },
     ]
   end

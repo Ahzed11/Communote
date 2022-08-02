@@ -3,6 +3,7 @@ defmodule Communote.Accounts.User do
   import Ecto.Changeset
   alias Communote.Accounts
   alias Communote.Notes.Note
+  alias Communote.Downloads.Download
   alias Communote.Slug
 
   schema "users" do
@@ -16,6 +17,7 @@ defmodule Communote.Accounts.User do
     field :slug, :string
     field :provider, :string
     has_many(:notes, Note)
+    has_many(:downloads, Download)
 
     timestamps()
   end

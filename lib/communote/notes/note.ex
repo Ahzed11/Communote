@@ -4,6 +4,7 @@ defmodule Communote.Notes.Note do
   alias Communote.Accounts.User
   alias Communote.Courses.Course
   alias Communote.Years.Year
+  alias Communote.Downloads.Download
   alias Communote.Notes
   alias Communote.Slug
 
@@ -17,6 +18,7 @@ defmodule Communote.Notes.Note do
     belongs_to(:user, User)
     belongs_to(:course, Course)
     belongs_to(:year, Year)
+    has_many(:downloads, Download)
 
     timestamps()
   end
