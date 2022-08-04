@@ -7,6 +7,7 @@ defmodule Communote.Notes.Note do
   alias Communote.Downloads.Download
   alias Communote.Reports.Report
   alias Communote.Reviews.Review
+  alias Communote.Comments.Comment
   alias Communote.Notes
   alias Communote.Slug
 
@@ -23,6 +24,7 @@ defmodule Communote.Notes.Note do
     has_many(:downloads, Download)
     has_many(:reports, Report)
     has_many(:reviews, Review)
+    has_many(:comments, Comment)
 
     timestamps()
   end

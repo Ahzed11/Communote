@@ -5,6 +5,8 @@ defmodule CommunoteWeb.NoteLive.Show do
   alias Communote.Accounts
   alias Communote.Reports.Report
   alias Communote.Reviews
+  alias Communote.Comments
+  alias Communote.Comments.Comment
 
   @impl true
   def mount(_params, _session, socket) do
@@ -14,9 +16,14 @@ defmodule CommunoteWeb.NoteLive.Show do
   @impl true
   def handle_params(%{"slug" => slug} = params, _, socket) do
     note = Notes.get_note_by_slug(slug)
-    socket_with_note_and_title = assign(socket, :note, note) |> assign(:page_title, page_title(socket.assigns.live_action))
+    comments = Comments.list_comment_by_note_id_with_preloaded_user(note.id)
+    new_socket =
+      socket
+      |> assign(:note, note)
+      |> assign(:comments, comments)
+      |> assign(:page_title, page_title(socket.assigns.live_action))
 
-    {:noreply, apply_action(socket_with_note_and_title, socket.assigns.live_action, params)}
+    {:noreply, apply_action(new_socket, socket.assigns.live_action, params)}
   end
 
   defp apply_action(socket, :show, _params) do
@@ -38,9 +45,8 @@ defmodule CommunoteWeb.NoteLive.Show do
   end
 
   @impl true
-  def handle_event("delete", %{"slug" => slug}, socket) do
-    note = Notes.get_note_by_slug(slug)
-
+  def handle_event("delete", _params, socket) do
+    note = socket.assigns.note
     if Accounts.owns?(socket.assigns.current_user, note) do
       {:ok, _} = Notes.delete_note(note)
     end

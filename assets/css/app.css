@@ -8,6 +8,10 @@
   @apply text-red-400/100;
 }
 
+.embed_parent {
+  height: 80vh;
+}
+
 /* LiveView specific classes for your customization */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {

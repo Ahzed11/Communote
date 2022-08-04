@@ -28,11 +28,11 @@
 <% end %>
 
 <div class="grid grid-cols-1 lg:grid-cols-4 dark:text-white">
-  <div class="col-span-1 lg:col-start-2 lg:col-span-2 p-8 bg-white dark:bg-gray-800 rounded-lg">
+  <div class="col-span-1 lg:col-start-2 lg:col-span-2 p-8 bg-white dark:bg-gray-800 rounded-lg mb-8">
     <section class="mb-8">
       <h1 class="text-2xl font-semibold lg:text-4xl dark:text-white text-center mb-4 underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600"><%= @note.title %></h1>
     
-      <div class="flex flex flex-col md:flex-row justify-center font-medium gap-x-2 text-white text-sm">
+      <div class="flex flex-col md:flex-row justify-center font-medium gap-x-2 text-white text-sm">
         <%= live_redirect to: Routes.profile_show_path(@socket, :show, @note.user.slug), class: "py-1 px-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300" do %>
           <i class="fas fa-user invisible sm:visible"></i>
           <%= @note.user.first_name %> <%= @note.user.last_name %>
@@ -89,13 +89,36 @@
     </section>
 
     <%= if @live_action in [:show] do %>
-      <section class="invisible md:visible h-screen">
+      <section class="invisible md:visible embed_parent mb-8">
         <embed
-          class="h-5/6 w-full"
+          class="h-full w-full"
           src={@presigned_url}
           type="application/pdf"
         />
       </section>
     <% end %>
+
+    <section>
+      <h2 class="text-2xl font-semibold lg:text-4xl dark:text-white text-center mb-8 underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600">Comments</h2>
+      <div class="mb-8">
+        <%= for comment <- @comments do %>
+          <.live_component
+            module={CommunoteWeb.CommentLive.CommentComponent}
+            id={comment.id}
+            comment={comment}
+            note={@note}
+            current_user={assigns.current_user}
+          />
+        <% end %>
+      </div>
+      <.live_component
+        module={CommunoteWeb.CommentLive.FormComponent}
+        id={:new_comment}
+        action={:new}
+        note={@note}
+        current_user={assigns.current_user}
+        return_to={Routes.note_show_path(@socket, :show, @note.slug)}
+      />
+    </section>
   </div>
 </div>

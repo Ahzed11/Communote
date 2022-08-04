@@ -1,0 +1,26 @@
+<article class="p-4 mt-2 bg-gray-200 dark:bg-gray-900 rounded-2xl flex">
+    <div class="rounded-full bg-purple-300 dark:bg-green-600 font-bold w-14 h-12 w-min-14 h-min-12 mr-4 flex items-center justify-center">
+        <%= live_redirect to: Routes.profile_show_path(@socket, :show, @current_user.slug),  class: "text-center text-gray-600 dark:text-white" do %>
+            <%= String.first(@comment.user.first_name) |> String.capitalize %><%= String.first(@comment.user.last_name) |> String.capitalize %>
+        <% end %>
+    </div>
+    <div class="w-full">
+        <div class="w-full flex justify-between">
+            <%= live_redirect to: Routes.profile_show_path(@socket, :show, @current_user.slug), class: "text-lg font-semibold block underline underline-offset-4 decoration-2 decoration-purple-800 dark:decoration-green-600" do %>
+                <%= @comment.user.first_name %> <%= @comment.user.last_name %>
+            <% end %>
+            <span class="block text-sm font-light">
+                <%= @comment.inserted_at |> Timex.from_now %>
+            </span>
+        </div>
+        <p class="break-all"><%= @comment.body %></p>
+
+        <%= if @is_owner do%>
+        <div class="flex justify-end">
+            <%= link to: Routes.note_show_path(@socket, :show, @note.slug), phx_click: "delete", phx_target: @myself, data: [confirm: "Are you sure?"], class: "flex items-center font-semibold" do %>
+                <i class="fas fa-trash"></i>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
+</article>
