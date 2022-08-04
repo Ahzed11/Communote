@@ -16,7 +16,10 @@ defmodule Communote.Reviews.ReviewAdmin do
       %{
         type: "tidbit",
         title: "Average score of reviews",
-        content: Decimal.to_string(Reviews.get_average_score(), :xsd),
+        content: case Reviews.get_average_score() do
+          nil -> "No review yet"
+          average -> Decimal.to_string(average, :xsd)
+        end,
         icon: "thumbs-up",
         order: 5,
         width: 2,
