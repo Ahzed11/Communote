@@ -1,4 +1,6 @@
-<h1 class="text-center text-4xl font-bold underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600 dark:text-white">Notes</h1>
+<h1 class="text-center text-4xl font-bold underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600 dark:text-white">
+Notes for <%= @code %>
+</h1>
 
 <ul class="list-none grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6 py-10 dark:text-white">
   <%= for year <- Enum.chunk_by(@notes, fn note -> note.year.year end) do %>
