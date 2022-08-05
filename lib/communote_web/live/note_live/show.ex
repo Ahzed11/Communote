@@ -6,7 +6,6 @@ defmodule CommunoteWeb.NoteLive.Show do
   alias Communote.Reports.Report
   alias Communote.Reviews
   alias Communote.Comments
-  alias Communote.Comments.Comment
 
   @impl true
   def mount(_params, _session, socket) do
@@ -35,12 +34,11 @@ defmodule CommunoteWeb.NoteLive.Show do
       |> assign(:review, review)
   end
 
-  defp apply_action(socket, :edit, %{"slug" => slug}) do
+  defp apply_action(socket, :edit, _params) do
     socket
   end
 
-  @impl true
-  defp apply_action(socket, :new_report, %{"slug" => slug}) do
+  defp apply_action(socket, :new_report, _params) do
     assign(socket, :report, %Report{})
   end
 

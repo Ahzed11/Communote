@@ -19,6 +19,7 @@ defmodule CommunoteWeb.CommentLive.CommentComponent do
       |> assign(:is_owner, is_owner)}
   end
 
+  @impl true
   def handle_event("delete", _params, socket) do
     comment = socket.assigns.comment
     if Accounts.owns?(socket.assigns.current_user, comment) do

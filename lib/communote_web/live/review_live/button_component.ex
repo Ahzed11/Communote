@@ -2,7 +2,6 @@ defmodule CommunoteWeb.ReviewLive.ButtonComponent do
   use CommunoteWeb, :live_component
 
   alias Communote.Reviews
-  alias Communote.Reviews.Review
 
   @impl true
   def update(%{review: review} = assigns, socket) do
@@ -18,6 +17,7 @@ defmodule CommunoteWeb.ReviewLive.ButtonComponent do
      |> assign(:star_class, &star_class/2)}
   end
 
+  @impl true
   def handle_event("clicked", %{"score" => score}, socket) do
     save_review(socket, String.to_integer(score))
   end
