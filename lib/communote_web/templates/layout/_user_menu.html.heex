@@ -3,7 +3,9 @@
         <div class="md:flex md:items-center md:justify-between">
             <div class="flex items-center justify-between">
                 <div class="text-xl font-semibold text-gray-700">
-                  <%= link "Communoté", to: Routes.page_path(@conn, :index), class: "text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" %>
+                  <%= link to: Routes.page_path(@conn, :index) do %>
+                    <img class="hidden md:block max-h-12" src="/images/logo-communote.png"/>
+                  <% end %>
                 </div>
 
                 <!-- Mobile menu button -->

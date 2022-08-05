@@ -1,0 +1,92 @@
+<section class="py-32 flex flex-col justify-around text-gray-900">
+    <div class="w-full">
+        <h1 class="text-center text-purple-800 dark:text-green-400 text-6xl font-semibold mb-2">Communoté</h1>
+        <p class="text-lg dark:text-white mb-5 text-center">
+            is a platform to share notes between college students. 
+        </p>
+
+        <div class="flex justify-center items-center py-2 -mx-1 md:mx-0">
+            <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-purple-700 dark:hover:bg-green-500 md:mx-2 md:w-auto" %>
+            <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-purple-800 dark:bg-green-600 rounded-md hover:bg-purple-900 dark:hover:bg-green-700 md:mx-0 md:w-auto" %>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-white dark:bg-gray-800">
+    <div class="container px-6 py-32 mx-auto">
+        <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">Why use <br> <span class="underline dark:decoration-green-500">Communoté</span> ?</h1>
+        
+        <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-4">
+            <div class="p-8 space-y-3 border-2 border-purple-400 dark:border-green-300 rounded-xl">
+                <span class="inline-block text-purple-500 dark:text-green-400">
+                    <i class="fas fa-pen text-4xl"></i>
+                </span>
+
+                <h1 class="text-2xl font-semibold text-gray-700 capitalize dark:text-white">Get course notes</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    Get notes that other users posted on the platform. It is free. Feel also free to share your own notes to make the platform live.
+                </p>
+            </div>
+
+            <div class="p-8 space-y-3 border-2 border-purple-400 dark:border-green-300 rounded-xl">
+                <span class="inline-block text-purple-500 dark:text-green-400">
+                    <i class="fas fa-user text-4xl"></i>
+                </span>
+
+                <h1 class="text-2xl font-semibold text-gray-700 capitalize dark:text-white">Respect of your personal data.</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    Communoté collects as less of its user's data as possible, only uses session cookies and does not use trackers.
+                </p>
+            </div>
+
+            <div class="p-8 space-y-3 border-2 border-purple-400 dark:border-green-300 rounded-xl">
+                <span class="inline-block text-purple-500 dark:text-green-400">
+                    <i class="fas fa-hand text-4xl"></i>
+                </span>
+
+                <h1 class="text-2xl font-semibold text-gray-700 capitalize dark:text-white">Ease of use</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    Communoté has been thought with the ease of use as a primary importance criterion.
+                </p>
+            </div>
+
+            <div class="p-8 space-y-3 border-2 border-purple-400 dark:border-green-300 rounded-xl">
+                <span class="inline-block text-purple-500 dark:text-green-400">
+                    <i class="fa-brands fa-github text-4xl"></i>
+                </span>
+
+                <h1 class="text-2xl font-semibold text-gray-700 capitalize dark:text-white">Open Source</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    Communoté has always been Open Source and will always be. All the code is available on Github if you are curious or if you want to contribute.
+                </p>
+
+                <a href="https://github.com/Ahzed11/Communote-Phoenix" target="_blank" class="inline-flex p-2 text-purple-500 capitalize transition-colors duration-200 transform bg-purple-100 rounded-full dark:bg-green-500 dark:text-white hover:underline hover:text-purple-600 dark:hover:text-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="bg-gray-200 dark:bg-gray-900">
+    <footer class="mx-auto container px-6 py-4 flex flex-col items-center justify-between sm:flex-row">
+        <%= link to: Routes.page_path(@conn, :index) do %>
+            <img class="hidden md:block max-h-12" src="/images/logo-communote.png"/>
+        <% end %>
+        
+        <!--<p class="py-2 text-gray-800 dark:text-white sm:py-0">All rights reserved</p>-->
+
+        <div class="flex -mx-2">
+            <a href="https://github.com/Ahzed11/Communote-Phoenix" target="_blank" class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300" aria-label="Github">
+                <i class="fa-brands fa-github w-5 h-5 fill-current text-2xl"></i>
+            </a>
+        </div>
+    </footer>
+</div>
