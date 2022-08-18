@@ -24,6 +24,7 @@ defmodule CommunoteWeb.CommentLive.CommentComponent do
     comment = socket.assigns.comment
     if Accounts.owns?(socket.assigns.current_user, comment) do
       {:ok, _} = Comments.delete_comment(comment)
+      send self(), {:delete_comment, comment}
     end
 
     {:noreply, socket}

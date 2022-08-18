@@ -15,7 +15,7 @@ defmodule CommunoteWeb.NoteLive.Show do
   @impl true
   def handle_params(%{"slug" => slug} = params, _, socket) do
     note = Notes.get_note_by_slug(slug)
-    comments = Comments.list_comment_by_note_id_with_preloaded_user(note.id)
+    comments = Comments.list_comments_by_note_id_with_preloaded_user(note.id)
     new_socket =
       socket
       |> assign(:note, note)
@@ -51,6 +51,23 @@ defmodule CommunoteWeb.NoteLive.Show do
 
     {:noreply, socket}
   end
+
+  @impl true
+  def handle_info({:new_comment, comment}, socket) do
+    comments = [comment | socket.assigns.comments]
+    {:noreply,
+      socket
+      |> assign(:comments, comments)}
+  end
+
+  @impl true
+  def handle_info({:delete_comment, comment}, socket) do
+    comments = List.delete(socket.assigns.comments, comment)
+    {:noreply,
+      socket
+      |> assign(:comments, comments)}
+  end
+
 
   defp page_title(:show), do: "Show Note"
   defp page_title(:edit), do: "Edit Note"

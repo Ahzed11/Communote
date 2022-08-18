@@ -17,9 +17,7 @@
 
         <%= if @is_owner do%>
         <div class="flex justify-end">
-            <%= link to: Routes.note_show_path(@socket, :show, @note.slug), phx_click: "delete", phx_target: @myself, data: [confirm: "Are you sure?"], class: "flex items-center font-semibold" do %>
-                <i class="fas fa-trash"></i>
-            <% end %>
+            <i class="fas fa-trash cursor-pointer hover:text-red-500" phx-click="delete" phx-target={@myself} data={[confirm: "Are you sure?"]}></i>
         </div>
         <% end %>
     </div>

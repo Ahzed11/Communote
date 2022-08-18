@@ -17,7 +17,7 @@ defmodule Communote.Comments do
       [%Comment{}, ...]
 
   """
-  def list_comment do
+  def list_comments do
     Repo.all(Comment)
   end
 
@@ -30,11 +30,13 @@ defmodule Communote.Comments do
       [%Comment{}, ...]
 
   """
-  def list_comment_by_note_id(note_id) do
+  def list_comments_by_note_id(note_id) do
     query = from c in Comment,
             where: c.note_id == ^note_id
     Repo.all(query)
   end
+
+
 
   @doc """
   Returns the list of comment for a given note_id.
@@ -45,11 +47,28 @@ defmodule Communote.Comments do
       [%Comment{}, ...]
 
   """
-  def list_comment_by_note_id_with_preloaded_user(note_id) do
+  def list_comments_by_note_id_with_preloaded_user(note_id) do
     query = from c in Comment,
             where: c.note_id == ^note_id,
-            preload: [:user]
+            preload: [:user],
+            order_by: [desc: :inserted_at]
     Repo.all(query)
+  end
+
+  @doc """
+  Gets a single comment by looking for its id.
+
+  ## Examples
+
+      iex> get_comment_with_preloaded_user(comment_id)
+      %Comment
+
+  """
+  def get_comment_with_preloaded_user(comment_id) do
+    query = from c in Comment,
+            where: c.id == ^comment_id,
+            preload: [:user]
+    Repo.one(query)
   end
 
   @doc """

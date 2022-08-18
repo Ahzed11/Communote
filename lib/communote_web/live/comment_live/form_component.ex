@@ -36,6 +36,7 @@ defmodule CommunoteWeb.CommentLive.FormComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  @impl true
   def handle_event("save", %{"comment" => comment_params}, socket) do
     save_comment(socket, socket.assigns.action, comment_params)
   end
@@ -43,11 +44,11 @@ defmodule CommunoteWeb.CommentLive.FormComponent do
   defp save_comment(socket, :new, comment_params) do
     comment = Map.put(comment_params, "user_id", socket.assigns.current_user.id) |> Map.put("note_id", socket.assigns.note.id)
     case Comments.create_comment(comment) do
-      {:ok, _comment} ->
+      {:ok, comment} ->
+        send self(), {:new_comment, Comments.get_comment_with_preloaded_user(comment.id)}
         {:noreply,
          socket
-         |> put_flash(:info, "Comment created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> put_flash(:info, "Comment created successfully")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
