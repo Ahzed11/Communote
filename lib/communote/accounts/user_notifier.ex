@@ -8,7 +8,7 @@ defmodule Communote.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"Communote", "contact@example.com"})
+      |> from({"Communote", "account@communote.be"})
       |> subject(subject)
       |> text_body(body)
 
