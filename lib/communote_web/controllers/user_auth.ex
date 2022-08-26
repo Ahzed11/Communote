@@ -129,7 +129,13 @@ defmodule CommunoteWeb.UserAuth do
   """
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
-      conn
+      case conn.assigns[:current_user].confirmed_at do
+        nil -> conn
+          |> put_flash(:error, "You must confirm your email")
+          |> redirect(to: Routes.user_confirmation_path(conn, :new))
+          |> halt()
+        _ -> conn
+      end
     else
       conn
       |> put_flash(:error, "You must log in to access this page.")
@@ -145,5 +151,5 @@ defmodule CommunoteWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/users/settings"
+  defp signed_in_path(conn), do: Routes.user_settings_path(conn, :edit)
 end

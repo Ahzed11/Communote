@@ -2,9 +2,14 @@ defmodule CommunoteWeb.UserConfirmationController do
   use CommunoteWeb, :controller
 
   alias Communote.Accounts
+  alias CommunoteWeb.Router.Helpers, as: Routes
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    email = case conn.assigns.current_user do
+      nil -> ""
+      user -> user.email
+    end
+    render(conn, "new.html", email: email)
   end
 
   def create(conn, %{"user" => %{"email" => email}}) do
@@ -35,7 +40,7 @@ defmodule CommunoteWeb.UserConfirmationController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "User confirmed successfully.")
-        |> redirect(to: "/")
+        |> redirect(to: Routes.user_session_path(conn, :new))
 
       :error ->
         # If there is a current user and the account was already confirmed,

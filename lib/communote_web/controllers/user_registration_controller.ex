@@ -20,7 +20,7 @@ defmodule CommunoteWeb.UserRegistrationController do
           )
 
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "User created successfully. Confirm your account by clicking on the link we sent you by email. Do not forget to check your spam folder.")
         |> UserAuth.log_in_user(user)
 
       {:error, %Ecto.Changeset{} = changeset} ->
