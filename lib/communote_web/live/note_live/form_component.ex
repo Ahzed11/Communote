@@ -88,7 +88,7 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
       false ->
         {:noreply,
         socket
-        |> put_flash(:danger, "You do not own this resource")
+        |> put_flash(:error, "You do not own this resource")
         |> push_redirect(to: socket.assigns.return_to)}
     end
   end

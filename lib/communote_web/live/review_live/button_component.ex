@@ -35,7 +35,7 @@ defmodule CommunoteWeb.ReviewLive.ButtonComponent do
       {:error, %Ecto.Changeset{} = _changeset} ->
         {:noreply,
         socket
-        |> put_flash(:danger, "An error happened when creating the review")}
+        |> put_flash(:error, "An error happened when creating the review")}
     end
   end
 
@@ -52,7 +52,7 @@ defmodule CommunoteWeb.ReviewLive.ButtonComponent do
       {:error, %Ecto.Changeset{} = _changeset} ->
         {:noreply,
         socket
-        |> put_flash(:danger, "An error happened when creating the review")}
+        |> put_flash(:error, "An error happened when creating the review")}
     end
   end
 
