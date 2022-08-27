@@ -170,6 +170,7 @@ defmodule Communote.Notes do
   def delete_note(%Note{} = note) do
     {:ok, _} = Repo.delete(note)
     delete_note_file(note)
+    Cachex.del(:presigned_urls, note.filename)
   end
 
   def delete_note_file(%Note{} = note) do
@@ -177,9 +178,19 @@ defmodule Communote.Notes do
     ExAws.S3.delete_object(bucket, note.filename) |> ExAws.request()
   end
 
-  def get_note_file_presigned_url(key, method) do
+  def get_note_file_presigned_url(key) do
+    case Cachex.get(:presigned_urls, key) do
+      {:ok, nil} -> create_note_file_presigned_url(key, :get)
+      {:ok, url} -> url
+    end
+  end
+
+  def create_note_file_presigned_url(key, method) do
     bucket = System.fetch_env!("AWS_S3_BUCKET")
     {:ok, presigned_url} = ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(method, bucket, key)
+    if method == :get do
+      Cachex.put(:presigned_urls, key, presigned_url, ttl: :timer.seconds(3600))
+    end
     presigned_url
   end
 

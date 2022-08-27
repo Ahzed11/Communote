@@ -15,7 +15,9 @@ defmodule Communote.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Communote.PubSub},
       # Start the Endpoint (http/https)
-      CommunoteWeb.Endpoint
+      CommunoteWeb.Endpoint,
+      # Start cache
+      {Cachex, name: :presigned_urls}
       # Start a worker by calling: Communote.Worker.start_link(arg)
       # {Communote.Worker, arg}
     ]

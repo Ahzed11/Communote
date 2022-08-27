@@ -8,6 +8,6 @@ defmodule CommunoteWeb.NoteController do
     {:ok, _} = %{user_id: current_user.id, note_id: note.id} |> Downloads.create_download
 
     conn
-    |> redirect(external: Notes.get_note_file_presigned_url(note.filename, :get))
+    |> redirect(external: Notes.get_note_file_presigned_url(note.filename))
   end
 end

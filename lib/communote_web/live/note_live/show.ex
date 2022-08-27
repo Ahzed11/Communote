@@ -26,7 +26,7 @@ defmodule CommunoteWeb.NoteLive.Show do
   end
 
   defp apply_action(socket, :show, _params) do
-    presigned_url = Notes.get_note_file_presigned_url(socket.assigns.note.filename, :get)
+    presigned_url = Notes.get_note_file_presigned_url(socket.assigns.note.filename)
     review = Reviews.get_review_by_user_and_note(socket.assigns.current_user, socket.assigns.note)
 
     socket

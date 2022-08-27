@@ -111,7 +111,7 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
     bucket = System.fetch_env!("AWS_S3_BUCKET")
     key = "public/#{Slug.slugify(entry.client_name)}-#{Ecto.UUID.generate}.pdf"
 
-    presigned_url = Notes.get_note_file_presigned_url(key, :put)
+    presigned_url = Notes.create_note_file_presigned_url(key, :put)
     meta = %{uploader: "S3", bucket: bucket, key: key, url: presigned_url}
     {:ok, meta, socket}
   end
