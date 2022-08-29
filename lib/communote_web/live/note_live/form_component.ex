@@ -6,7 +6,7 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
   alias Communote.Years
   alias Communote.Accounts
 
-  require Logger
+  @waiting_time 300
 
   @impl Phoenix.LiveComponent
   def mount(socket) do
@@ -65,7 +65,7 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
 
   def handle_event("save", %{"note" => note_params}, socket) do
     filename = consume_uploaded_entries(socket, :note_file, fn %{} = meta, _entry ->
-      meta.key
+      {:ok, meta.key}
     end) |> List.first
 
     save_note(socket, socket.assigns.action, note_params, filename)
@@ -78,10 +78,11 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
         note = Map.put(note_params, "filename", filename)
         case Notes.update_note(socket.assigns.note, note) do
           {:ok, _note} ->
+            :timer.sleep(@waiting_time)
             {:noreply,
             socket
             |> put_flash(:info, "Note updated successfully")
-            |> push_redirect(to: socket.assigns.return_to)}
+            |> redirect(to: socket.assigns.return_to)}
 
           {:error, %Ecto.Changeset{} = changeset} -> {:noreply, assign(socket, :changeset, changeset)}
         end
@@ -97,10 +98,11 @@ defmodule CommunoteWeb.NoteLive.FormComponent do
     note = Map.put(note_params, "user_id", socket.assigns.current_user.id) |> Map.put("filename", filename)
     case Notes.create_note(note) do
       {:ok, note} ->
+        :timer.sleep(@waiting_time)
         {:noreply,
         socket
         |> put_flash(:info, "Note created successfully")
-        |> push_redirect(to: Routes.note_show_path(socket, :show, note.slug))}
+        |> redirect(to: Routes.note_show_path(socket, :show, note.slug))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

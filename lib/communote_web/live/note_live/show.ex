@@ -20,7 +20,7 @@ defmodule CommunoteWeb.NoteLive.Show do
       socket
       |> assign(:note, note)
       |> assign(:comments, comments)
-      |> assign(:page_title, page_title(socket.assigns.live_action))
+      |> assign(:page_title, page_title(socket.assigns.live_action, note))
 
     {:noreply, apply_action(new_socket, socket.assigns.live_action, params)}
   end
@@ -69,7 +69,7 @@ defmodule CommunoteWeb.NoteLive.Show do
   end
 
 
-  defp page_title(:show), do: "Show Note"
-  defp page_title(:edit), do: "Edit Note"
-  defp page_title(:new_report), do: "New Report"
+  defp page_title(:show, note), do: note.title
+  defp page_title(:edit, note), do: "Edit - #{note.title}"
+  defp page_title(:new_report, note), do: "New Report - #{note.title}"
 end
