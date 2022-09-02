@@ -7,6 +7,7 @@ defmodule Communote.Courses do
   alias Communote.Repo
 
   alias Communote.Courses.Course
+  alias Communote.Notes.Note
   alias Communote.Courses.CourseSearch
 
   @doc """
@@ -28,13 +29,15 @@ defmodule Communote.Courses do
       iex> list_courses_with_fts()
       [%Course{}, ...]
   """
-  def list_courses_with_fts(term) when term == "" do
-    list_courses_with_fts("LINFO")
+  def list_courses_with_fts(term) do
+    query = Course |> join_note_count |> where_term(term) |> order_by_most_relevant(term) |> limit(8)
+    Repo.all(query)
   end
 
-  def list_courses_with_fts(term) do
-    query = Course |> where_term(term) |> order_by_most_relevant(term) |> limit(8)
-    Repo.all(query)
+  defp join_note_count(query) do
+    join(query, :left, [c], n in Note, on: c.id == n.course_id)
+      |> group_by([c], c.id)
+      |> select([c, n], %{id: c.id, title: c.title, code: c.code, note_count: count(n.course_id)})
   end
 
   defp where_term(query, term) do
