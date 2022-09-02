@@ -50,6 +50,15 @@ defmodule CommunoteWeb.UserSettingsController do
     end
   end
 
+  def delete(conn, params) do
+    user = conn.assigns.current_user
+    {:ok, _} = Accounts.delete_account(user)
+
+    conn
+      |> put_flash(:info, "Your account has been successfully deleted")
+      |> redirect(to: Routes.home_path(conn, :index))
+  end
+
   def confirm_email(conn, %{"token" => token}) do
     case Accounts.update_user_email(conn.assigns.current_user, token) do
       :ok ->

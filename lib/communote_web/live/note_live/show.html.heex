@@ -33,9 +33,11 @@
       <h1 class="text-2xl font-semibold lg:text-4xl dark:text-white text-center mb-4 underline underline-offset-8 decoration-4 decoration-purple-800 dark:decoration-green-600"><%= @note.title %></h1>
     
       <div class="flex flex-col md:flex-row justify-center font-medium gap-x-2 text-white text-sm">
-        <%= live_redirect to: Routes.profile_show_path(@socket, :show, @note.user.slug), class: "py-1 px-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300" do %>
-          <i class="fas fa-user invisible sm:visible"></i>
-          <%= @note.user.first_name %> <%= @note.user.last_name %>
+        <%= if !is_nil(@note.user) do %>
+          <%= live_redirect to: Routes.profile_show_path(@socket, :show, @note.user.slug), class: "py-1 px-2 bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300" do %>
+            <i class="fas fa-user invisible sm:visible"></i>
+            <%= @note.user.first_name %> <%= @note.user.last_name %>
+          <% end %>
         <% end %>
     
         <%= live_redirect to: Routes.note_index_path(@socket, :index, @note.course.code), class: "py-1 px-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300" do %>

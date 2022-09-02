@@ -11,7 +11,11 @@ defmodule CommunoteWeb.Live.NoteLive.NoteCard do
                     <h2 class="text-2xl font-bold truncate"><%= note.title %></h2>
                     <div class="text-purple-800 dark:text-green-600 text-sm font-medium flex mb-4">
                         <span>
-                            <%= note.user.first_name %> <%= note.user.last_name %>
+                            <%= if is_nil(note.user) do %>
+                                Deleted User
+                            <% else %>
+                                <%= note.user.first_name %> <%= note.user.last_name %>
+                            <% end %>
                         </span>
                     </div>
                 </div>

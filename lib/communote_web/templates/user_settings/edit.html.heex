@@ -73,3 +73,18 @@
       </div>
   </.form>
 </section>
+
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-10">
+  <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Danger zone</h2>
+
+  <p class="my-4 dark:text-white font-light">
+    Before deleting your account make sure there is not a note you would like to delete because removing your account does not remove your notes.
+  </p>
+
+  <%= link to: Routes.user_settings_path(@conn, :delete), method: "DELETE", data: [confirm: "Are you sure?"], class: "flex items-center justify-center px-2 py-1 text-white transition-colors duration-300 transform bg-red-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-red-500 focus:bg-red-500 focus:ring focus:ring-red-300 focus:ring-opacity-40 mt-2" do %>
+      <i class="fas fa-trash"></i>
+      <span class="mx-1 font-semibold">
+        Delete my account
+      </span>
+  <% end %>
+</section>

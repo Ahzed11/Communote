@@ -302,6 +302,13 @@ defmodule Communote.Accounts do
     :ok
   end
 
+  @doc """
+  Deletes the user assigned to the given id
+  """
+  def delete_account(user) do
+    Repo.delete user
+  end
+
   ## Confirmation
 
   @doc """
