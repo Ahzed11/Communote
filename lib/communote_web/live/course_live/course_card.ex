@@ -6,7 +6,7 @@ defmodule CommunoteWeb.Live.CourseLive.CourseCard do
       <li class=""
         id={"course-#{course.id}"}
         >
-            <%= live_redirect to: Routes.note_index_path(@socket, :index, assigns.course.code), class: "p-8 inline-block rounded-lg shadow overflow-hidden h-full hover:shadow-lg transform hover:scale-105 transition duration-300
+            <%= live_redirect to: Routes.note_index_path(@socket, :index, assigns.course.code), class: "w-full p-8 inline-block rounded-lg shadow overflow-hidden h-full hover:shadow-lg transform hover:scale-105 transition duration-300
             bg-white dark:bg-gray-800 dark:text-white" do %>
                 <div class="h-full">
                     <h2 class="text-2xl font-bold"><%= assigns.course.title %></h2>
