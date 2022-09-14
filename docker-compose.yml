@@ -23,17 +23,17 @@ services:
     volumes:
       - .:/app
   caddy:
+    depends_on:
+      - web
     image: caddy:2.5.2
-    restart: unless-stopped
+    restart: always
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - "./Caddyfile:/etc/caddy/Caddyfile"
     ports:
       - "80:80"
       - "443:443"
-      - "443:443/udp"
-    volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
 volumes:
   pgdata:
   caddy_data:
