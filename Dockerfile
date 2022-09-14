@@ -5,4 +5,4 @@ WORKDIR /app
 COPY mix.exs .
 COPY mix.lock .
 
-CMD mix deps.get && mix phx.server
+CMD mix deps.get && mix ecto.create && mix ecto.migrate && mix phx.server

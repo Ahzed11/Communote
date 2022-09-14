@@ -1,12 +1,7 @@
 import Config
 
 config :communote, Communote.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "communote_dev",
-  hostname: "db",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -17,7 +12,7 @@ config :communote, Communote.Repo,
 config :communote, CommunoteWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {0, 0, 0, 0}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 80],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

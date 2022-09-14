@@ -1,0 +1,7 @@
+communote.be {
+	redir https://www.{host}{uri}
+}
+
+localhost {
+	reverse_proxy web:80
+}
