@@ -1,7 +1,3 @@
-{$PHX_HOST} {
-	redir https://www.{host}{uri}
-}
-
 localhost, www.{$PHX_HOST} {
 	reverse_proxy web:80
 }
