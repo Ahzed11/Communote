@@ -2,6 +2,6 @@ communote.be {
 	redir https://www.{host}{uri}
 }
 
-localhost {
+localhost, www.communote.be {
 	reverse_proxy web:80
 }
