@@ -4,7 +4,7 @@ defmodule Communote.Comments.Comment do
   alias Communote.Accounts.User
   alias Communote.Notes.Note
 
-  schema "comment" do
+  schema "comments" do
     field :body, :string
     belongs_to(:user, User)
     belongs_to(:note, Note)
