@@ -1,12 +1,7 @@
 import Config
 
 config :communote, Communote.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "communote_dev",
-  hostname: "db",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -72,16 +67,3 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
-  client_id: System.get_env("MICROSOFT_CLIENT_ID"),
-  client_secret: System.get_env("MICROSOFT_CLIENT_SECRET")
-
-config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: System.get_env("GOOGLE_CLIENT_ID"),
-  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
-
-config :ex_aws,
-  access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
-  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
-  region: {:system, "AWS_REGION"}
