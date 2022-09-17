@@ -29,6 +29,10 @@ defmodule Communote.Courses do
       iex> list_courses_with_fts()
       [%Course{}, ...]
   """
+  def list_courses_with_fts(term) when term == "" do
+    list_courses_with_fts("LINFO") # To avoid searching an empty string which causes a crash in the liveview
+  end
+
   def list_courses_with_fts(term) do
     query = Course |> join_note_count |> where_term(term) |> order_by_most_relevant(term) |> limit(8)
     Repo.all(query)
