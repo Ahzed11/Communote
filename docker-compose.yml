@@ -3,9 +3,8 @@ services:
   db:
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: $POSTGRES_USERNAME
     image: 'postgres:alpine'
     restart: always
     volumes:
@@ -16,13 +15,26 @@ services:
     build: .
     depends_on:
       - db
+    restart: always
     environment:
-      MIX_ENV: dev
+      MIX_ENV: $MIX_ENV
     env_file:
       - .env
-    ports:
-      - '4000:4000'
     volumes:
       - .:/app
+  caddy:
+    depends_on:
+      - web
+    image: caddy:2.5.2
+    restart: always
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - "./Caddyfile:/etc/caddy/Caddyfile"
+    ports:
+      - "80:80"
+      - "443:443"
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:

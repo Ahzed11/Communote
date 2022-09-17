@@ -20,19 +20,19 @@ if System.get_env("PHX_SERVER") do
   config :communote, CommunoteWeb.Endpoint, server: true
 end
 
-if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
+config :communote, Communote.Repo,
+  username: System.get_env("POSTGRES_USERNAME"),
+  password: System.get_env("POSTGRES_PASSWORD"),
+  database: "#{System.get_env("POSTGRES_DATABASE")}_#{System.get_env("MIX_ENV")}",
+  hostname: "db",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
+if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   config :communote, Communote.Repo,
     # ssl: true,
-    url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
@@ -52,7 +52,7 @@ if config_env() == :prod do
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :communote, CommunoteWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"],
+    url: [host: host, port: port, scheme: "http"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

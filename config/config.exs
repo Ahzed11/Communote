@@ -12,7 +12,6 @@ config :communote,
 
 # Configures the endpoint
 config :communote, CommunoteWeb.Endpoint,
-  url: [host: "localhost"],
   render_errors: [view: CommunoteWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Communote.PubSub,
   live_view: [signing_salt: "/C9RG5Nn"]
